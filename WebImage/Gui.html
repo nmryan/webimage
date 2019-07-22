@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+		// Include the base GUI library.
+		document.write('<link rel="import" href="' + window.Alteryx.LibDir + '2/lib/includes.html">')
+	</script>
+	<style>
+		body {
+			margin: 10px 10px 10px 10px
+		}
+		
+		h2 {
+			font-size: 1.556em;
+			font-weight: normal;
+			color: #52617f;
+		}		
+	</style>
+</head>
+
+<body>
+	<!--
+	<h2>URL</h2>
+	<ayx data-ui-props='{type:"TextBox", widgetId:"TextBox1"}' data-item-props='{dataName:"url", dataType:"SimpleString"}'></ayx>
+	-->
+
+	<form onsubmit="changeImage(); return false">
+		<input type="text" id="search" placeholder="Blank for Random Image">
+		<input type="submit" value="Search Image">
+	</form>
+	<br>
+	<img id="preview" src="">
+
+	<script>
+		var preview = document.getElementById('preview')
+		var xhr = new XMLHttpRequest()
+
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				preview.src = xhr.responseURL
+				Alteryx.Gui.Manager.getDataItem("url").setValue(xhr.responseURL)
+			}
+		}
+
+		changeImage = function () {
+			var terms = document.getElementById('search').value
+			xhr.open('GET', "https://source.unsplash.com/600x800/?" + terms)
+			xhr.send()
+		} 
+
+		Alteryx.Gui.BeforeLoad = function (manager, AlteryxDataItems) {
+			var textBoxDataItem = new AlteryxDataItems.SimpleString('url')
+			manager.addDataItem(textBoxDataItem)
+		}
+
+		Alteryx.Gui.AfterLoad = function (manager, AlteryxDataItems) {
+			if (manager.getDataItem("url").getValue()) {
+				preview.src = manager.getDataItem("url").getValue()
+			} 
+		}
+
+	</script>
+</body>
+
+</html>

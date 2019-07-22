@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<AlteryxJavaScriptPlugin>
+  <EngineSettings EngineDll="Macro" EngineDllEntryPoint="WebImage\supportingMacros\webImage.yxmc" SDKVersion="10.1" />
+  <GuiSettings Html="Gui.html" Icon="Icon.png" SDKVersion="10.1">
+    <InputConnections>
+    </InputConnections>
+    <OutputConnections>
+      <Connection Name="Output" AllowMultiple="False" Optional="True" Type="Connection" Label=""/>
+    </OutputConnections>
+  </GuiSettings>
+  <Properties>
+    <MetaInfo>
+      <Name>Web Image</Name>
+      <Description>Add an image from the web for output via the Render tool.</Description>
+      <CategoryName>Reporting</CategoryName>
+    </MetaInfo>
+  </Properties>
+</AlteryxJavaScriptPlugin>
